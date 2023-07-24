@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<!-- 
+<head>
+	...
+	<script src="..../jsf.js"></script>
+</head>
+ -->
+
+<h:head>
+	<title>App301.2 - Frutas App</title>
+</h:head>
+
+<!-- 
+<body>
+	...
+	<script src="..../mojarra.js"></script>
+</body>	
+ -->
+<h:body>
+	<h1>Bienvenido a Frutas App</h1>
+
+	<h2>
+		<!-- <span>Esta es una aplicación de JavaServer Faces (2023-07-24...)</span> -->
+		<h:outputText value="#{frutaService.getCurrentDate()}"></h:outputText>
+	</h2>
+	
+	<!-- Repintado (Rendered): Actualizar nuevamente las etiquetas y volver a pedir los valores -->
+	<h:panelGroup id="DatosFrutas" layout="block">
+		<div>
+			<!-- Enlazamos la propiedad frutaService.nombre { getNombre(), setNombre(value) } -->
+			<span>Nombre: <h:outputText value="#{frutaService.nombre}" /> </span>
+		</div>
+		<div>
+			<!-- Enlazamos la propiedad frutaService.precio { getPrecio(), setPrecio(value) } -->
+			<span>Precio: $<h:outputText value="#{frutaService.precio}" /> </span>
+		</div>
+	</h:panelGroup>
+	
+	<h:form>
+		<!-- Enlazamos la propiedad frutaService.nombre { getNombre(), setNombre(value) } -->
+		<h:inputText value="#{frutaService.nombre}" />
+		<!-- Enlazamos la propiedad frutaService.precio { getPrecio(), setPrecio(value) } -->
+		<h:inputText value="#{frutaService.precio}" />
+		<!-- Creamos un botón transaccional entre la interfaz y el bean -->
+		<h:commandButton value="Agregar" action="#{frutaService.addFruta()}">
+			
+		</h:commandButton>
+	</h:form>
+	
+</h:body>
+
+</html>
+
+
+
+
+
+
