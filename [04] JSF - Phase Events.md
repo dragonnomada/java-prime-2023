@@ -193,3 +193,34 @@ public class PreInvokeApplicationListener implements PhaseListener {
     ...
 </f:metadata>
 ```
+
+## Manipulating the Component Tree
+
+Podemos manipular el árbol de componentes en un evento por ejemplo:
+
+> **Atrapar el evento cuándo se construye el formulario**
+
+```xml
+<h:form id="dynamicFormId">
+    <f:event type="postAddToView" listener="#{bean.populateForm}" />
+</h:form>
+```
+
+> **Controlar la construcción del formulario en el Bean**
+
+```java
+private transient UIForm form;
+
+public void populateForm(ComponentSystemEvent event) {
+    form = (UIForm) event.getComponent();
+    
+    HtmlOutputLabel label = new HtmlOutputLabel();
+    label.setId("myLabel");
+    label.setFor("myInput");
+    label.setValue("My Label");
+    
+    form.getChildren().add(label);
+
+    // ...
+}
+```
