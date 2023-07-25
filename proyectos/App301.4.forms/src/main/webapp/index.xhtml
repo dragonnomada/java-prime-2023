@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<h:head>
+	<title>Forms</title>
+</h:head>
+
+<h:body>
+
+	<h1>Forms show Case</h1>
+
+	<!-- <c:set var="total" value="#{-123}" />
+	
+	<h2>Total: #{total}</h2>
+	
+	<h:panelGroup rendered="#{total lt 0}">
+		<p>Total no es válido</p>
+	</h:panelGroup>
+	
+	<c:if test="#{total lt 0}">
+		<p>Total no es válido</p>
+	</c:if>
+	
+	<c:choose>
+		<c:when test="#{total eq 0}">
+			<p>Total es cero</p>
+		</c:when>
+		<c:when test="#{total lt 0}">
+			<p>Total es negativo</p>
+		</c:when>
+		<c:otherwise>
+			<p>Total es válido</p>
+			
+			<h:form>
+				<h:inputText value="#{total}" readonly="#{true}" />
+			</h:form>
+		</c:otherwise>
+	</c:choose> -->
+
+
+	<!-- <ol>
+		<c:forEach items="#{frutasBean.frutas}" var="fruta">
+			<li>
+				<span>#{fruta}</span>
+			</li>
+		</c:forEach>
+	</ol> -->
+
+	<h:form>
+		<h:inputText value="#{frutasBean.nombre}" />
+		<h:inputText value="#{frutasBean.precio}" />
+		<h:commandButton value="Agregar Fruta" action="#{frutasBean.addFruta}">
+			<!-- AJAX -->
+		</h:commandButton>
+	</h:form>
+
+	<f:view>
+		<c:set var="total" value="#{0}" />
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>NOMBRE</th>
+					<th>PRECIO</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="#{frutasBean.frutas}" var="fruta">
+					<tr>
+						<td>#{fruta.id}</td>
+						<td>#{fruta.nombre}</td>
+						<td>$ #{fruta.precio}</td>
+						<c:set var="total" value="#{total + fruta.precio}" />
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
+		<p>Total: #{total}</p>
+	</f:view>
+
+
+</h:body>
+
+</html>

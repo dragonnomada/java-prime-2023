@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -24,9 +25,8 @@ public class FrutaService {
 	// Propiedad completa ([variable], getter, setter)
 	private double precio = 123.45;
 	
-	// TODO: Conectar JPA y una entidad para tener persistencia
-	@PersistenceContext(unitName = "frutaEntityManager")
-	EntityManager entityManager;
+	@Inject
+	FrutaServiceDB frutaServiceDB;
 	
 	// Propiedad -> currentDate ~= getCurrentDate()
 	public String getCurrentDate() {
@@ -55,10 +55,7 @@ public class FrutaService {
 	
 	public void addFruta() {
 		logger.info("Agregar fruta: " + nombre + " $" + precio);
-		// TODO: 1. Crear la entidad Fruta con los datos del nombre y el precio
-		Fruta fruta = new Fruta();
-		// TODO: 2. Persistir la entidad en la base de datos con JPA
-		entityManager.persist(fruta);
+		frutaServiceDB.addFruta(nombre, precio);
 	}
 	
 }

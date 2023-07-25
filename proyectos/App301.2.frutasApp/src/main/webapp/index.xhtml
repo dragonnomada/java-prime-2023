@@ -50,7 +50,8 @@
 		<h:inputText value="#{frutaService.precio}" />
 		<!-- Creamos un botón transaccional entre la interfaz y el bean -->
 		<h:commandButton value="Agregar" action="#{frutaService.addFruta()}">
-			
+			<!-- POSTBACK -->
+			<f:ajax execute="@form" render=":DatosFrutas" />
 		</h:commandButton>
 	</h:form>
 	
