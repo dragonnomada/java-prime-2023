@@ -1,5 +1,7 @@
 # JSF - JSTL Core Tags
 
+Espacio de nombre: `xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"`
+
 Existen algunas implementaciones de las JSTL Core Tags de JSP migradas a JSF.
 
     <c:set>
