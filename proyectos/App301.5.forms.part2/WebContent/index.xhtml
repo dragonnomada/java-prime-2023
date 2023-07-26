@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Forms 2</title>
+</h:head>
+
+<h:body>
+
+	<h1>Subida de archivos</h1>
+
+	<h:panelGroup id="DatosArchivo" layout="block">
+		<p>#{bean.fullname}</p>
+		<p>#{bean.name}</p>
+		<p>#{bean.contentType}</p>
+		<p>#{bean.size} bytes</p>
+	</h:panelGroup>
+
+	<h:form enctype="multipart/form-data">
+		
+		<h:inputFile value="#{bean.file}" />
+		
+		<h:commandButton value="Enviar" action="#{bean.upload}">
+			<f:ajax execute="@form" render=":DatosArchivo"></f:ajax>
+		</h:commandButton>
+		
+	</h:form>
+
+</h:body>
+
+</html>

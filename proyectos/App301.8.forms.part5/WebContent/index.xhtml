@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Forms 5</title>
+</h:head>
+
+<h:body>
+
+	<h1>Formularios con Navegación y AJAX</h1>
+
+	<div>
+		<h:link outcome="pages/page1.xhtml" value="Ir a la Página 1"></h:link>
+	</div>
+	
+	<div>
+		<h:link outcome="pages/page2.xhtml" value="Ir a la Página 2"></h:link>
+	</div>
+	
+	<h:form>
+		<!-- ... -->
+		<h:commandButton value="Enviar" action="#{myBean.submit()}">
+		</h:commandButton>
+	</h:form>
+	
+	<h:form>
+		<h3>Escribe el nombre de una fruta</h3>
+		<h:inputText value="#{frutaBean.name}">
+			<!-- Invoca el listener cuándo ocurre el evento (petición ajax -> postback) -->
+			<f:ajax event="change" 
+				listener="#{frutasListBean.updatePriceList(frutaBean.name)}" 
+				render=":PriceList"></f:ajax>
+		</h:inputText>
+	</h:form>
+
+	<h:panelGroup id="PriceList" layout="block">	
+		<c:if test="#{frutasListBean.hasPrices()}">
+			<c:forEach items="#{frutasListBean.prices}" var="price">
+				<li>#{price}</li>
+			</c:forEach>
+			<!-- <h:selectOneMenu value="{frutaBean.selectedPrice}">
+				<f:selectItems value="{frutasListBean.prices}" />
+			</h:selectOneMenu> -->
+		</c:if>
+		
+		<c:if test="#{frutasListBean.isPricesEmpty()}">
+			<h2>No hay lista de precios</h2>
+		</c:if>
+	</h:panelGroup>
+
+</h:body>
+
+</html>
+

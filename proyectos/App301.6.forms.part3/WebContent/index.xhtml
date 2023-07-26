@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Forms 3</title>
+</h:head>
+
+<h:body>
+
+	<h1>Uso de Selectores</h1>
+
+	<h:form id="myForm">
+
+		<div style="display: flex; flex-direction: column; padding: 24px 12px;">
+			<h:outputLabel for="user" value="Usuario:"></h:outputLabel>
+			<h:inputText id="user" value="#{loginBean.user}"></h:inputText>
+		</div>
+
+		<div style="display: flex; flex-direction: column; padding: 24px 12px;">
+			<h:outputLabel for="password" value="Contraseña:"></h:outputLabel>
+			<h:inputSecret id="password" value="#{loginBean.password}"></h:inputSecret>
+			<span style="color: red;">
+				<h:message for="password"></h:message>
+			</span>
+		</div>
+
+		<div>
+			<h:selectBooleanCheckbox value="#{loginBean.remember}"></h:selectBooleanCheckbox>
+			<span>Recordar contraseña</span>
+		</div>
+
+		<div>
+			<h:selectOneMenu value="#{loginBean.serverName}">
+				<f:selectItem itemValue="#{null}" itemLabel="Servidor por defecto"></f:selectItem>
+				<f:selectItems value="#{loginBean.getServers()}"></f:selectItems>
+			</h:selectOneMenu>
+		</div>
+
+		<div>
+			<h:selectOneRadio value="#{loginBean.userType}">
+				<f:selectItem itemValue="#{null}" itemLabel="Usuario por defecto"></f:selectItem>
+				<f:selectItems value="#{loginBean.userTypes}"></f:selectItems>
+			</h:selectOneRadio>
+		</div>
+
+		<div>
+			<h:selectManyListbox value="#{loginBean.permissions}">
+				<f:selectItem itemValue="#{null}" itemLabel="Permisos por defecto"></f:selectItem>
+				<f:selectItems value="#{loginBean.availablePermissions}"></f:selectItems>
+			</h:selectManyListbox>
+		</div>
+
+		<div>
+			<h:selectManyCheckbox layout="pageDirection" value="#{loginBean.extras}">
+				<f:selectItem itemValue="#{null}" itemLabel="Sin extras"></f:selectItem>
+				<f:selectItems value="#{loginBean.availableExtras}"></f:selectItems>
+			</h:selectManyCheckbox>
+		</div>
+
+		<div>
+			<h:commandButton value="Ingresar" action="#{loginBean.login}">
+			</h:commandButton>
+		</div>
+
+	</h:form>
+	
+	<div>
+		<h:messages id="messages" globalOnly="true" />
+	</div>
+
+</h:body>
+
+</html>
