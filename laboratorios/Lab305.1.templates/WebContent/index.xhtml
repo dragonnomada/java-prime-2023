@@ -1,0 +1,106 @@
+<ui:composition template="/WEB-INF/templates/base.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	<ui:param name="title" value="My App :D" />
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:viewParam name="page" />
+			<!-- <f:event type="preRenderView"
+				listener="{navigator.firstPage(param.page)}" /> -->
+			<!-- <f:viewAction action="{navigator.firstPage(param.page)}" /> -->
+		</f:metadata>
+
+		<c:choose id="choose">
+			<c:when test="#{not empty param.page}">
+				<h1>Restaurando página... (#{param.page})</h1>
+				<f:event type="preRenderView"
+					listener="#{navigator.firstPage(param.page)}" />
+			</c:when>
+			<c:otherwise>
+				<h1>Página restaurada: #{navigator.page}</h1>
+
+				<aside>
+					<nav>
+						<h:form>
+							<f:ajax render=":content" onevent="pageChangeListener">
+								<ul>
+									<li><h:commandLink value="page1"
+											action="#{navigator.setPage('page1')}" /></li>
+									<li><h:commandLink value="page2"
+											action="#{navigator.setPage('page2')}" /></li>
+									<li><h:commandLink value="page3"
+											action="#{navigator.setPage('page3')}" /></li>
+								</ul>
+							</f:ajax>
+						</h:form>
+					</nav>
+				</aside>
+
+				<c:set var="currentPage" value="#{navigator.page}" />
+
+				<article jsf:id="content" data-page="#{navigator.page}">
+					<div>
+						<h2>Current Page: #{navigator.page}</h2>
+						<ui:include src="/pages/#{navigator.page}.xhtml">
+							<ui:param name="action1" value="#{navigator.setPage('page1')}"></ui:param>
+							<ui:param name="action2" value="#{navigator.setPage('page2')}"></ui:param>
+							<ui:param name="action3" value="#{navigator.setPage('page3')}"></ui:param>
+						</ui:include>
+					</div>
+				</article>
+
+				<h:messages globalOnly="true" />
+			</c:otherwise>
+		</c:choose>
+
+		<script>
+			console.log("Initialized (#{navigator.page})");
+
+			var historyState = JSON.parse(sessionStorage.getItem("history")
+					|| "[]");
+			var forward = false;
+
+			function pageChangeListener(event) {
+				console.log("page event (#{navigator.page})")
+				if (event.status == "success") {
+					var page = document.getElementById("content").dataset.page;
+
+					console.log("new page (#{navigator.page}):", page)
+
+					var url = location.pathname + "?page=" + page;
+					history.pushState(null, document.title, url);
+					historyState.push(url);
+
+					sessionStorage.setItem("history", JSON
+							.stringify(historyState));
+					forward = true;
+				}
+			}
+
+			window.addEventListener('popstate', function(event) {
+				event.preventDefault();
+				console.log("POP:", historyState);
+				if (forward) {
+					if (historyState.length > 0) {
+						historyState.pop();
+						forward = false;
+					}
+				}
+				if (historyState.length > 0) {
+					var url = historyState.pop();
+					sessionStorage.setItem("history", JSON
+							.stringify(historyState));
+					window.location.href = url;
+				}
+			}, false);
+		</script>
+
+	</ui:define>
+</ui:composition>

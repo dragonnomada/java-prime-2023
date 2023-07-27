@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Tables</title>
+</h:head>
+
+<h:body>
+	
+	<h1>Tablas</h1>
+	
+	<h:form id="myForm">
+		<div>
+			<h:inputText a:placeholder="Nombre del producto" value="#{productoBean.productoNombre}" />
+		</div>
+		<div>
+			<h:inputText a:type="number" value="#{productoBean.productoPrecio}" />
+		</div>
+		<div>
+			<h:commandButton value="Agregar Producto" action="#{productoBean.submitProducto()}">
+				<f:ajax execute="@form" render=":myForm :productosTable :productosDataTable :productosDataTableEdit" />
+			</h:commandButton>
+		</div>
+		<div>
+			<span style="color: blue;">
+				<h:message for="myForm" />
+			</span>
+		</div>
+	</h:form>
+	
+	<h:panelGrid id="productosTable" columns="3">
+		<c:forEach items="#{productoBean.productos}" var="producto">
+			<h:panelGroup>#{producto.id}</h:panelGroup>	
+			<h:panelGroup>#{producto.nombre}</h:panelGroup>	
+			<h:panelGroup>
+				<h:outputText value="#{producto.precio}">
+					<f:convertNumber type="currency" locale="es_MX" />
+				</h:outputText>
+			</h:panelGroup>	
+		</c:forEach>
+	</h:panelGrid>
+	
+	<h:dataTable id="productosDataTable" value="#{productoBean.productos}" var="producto">
+		<h:column>
+			<f:facet name="header">ID</f:facet>
+			#{producto.id}
+		</h:column>
+		<h:column>
+			<f:facet name="header">NOMBRE</f:facet>
+			#{producto.nombre}
+		</h:column>
+		<h:column>
+			<f:facet name="header">PRECIO</f:facet>
+			<h:outputText value="#{producto.precio}">
+				<f:convertNumber type="currency" locale="es_MX" />
+			</h:outputText>
+		</h:column>
+	</h:dataTable>
+	
+	<h:form id="productosDataTableEdit">
+		<h:dataTable value="#{productoBean.productos}" var="producto">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+			#{producto.id}
+		</h:column>
+			<h:column>
+				<f:facet name="header">NOMBRE</f:facet>
+			<h:inputText id="nombre" value="#{producto.nombre}" />
+            <h:message for="nombre" />
+		</h:column>
+			<h:column>
+				<f:facet name="header">PRECIO</f:facet>
+				<h:inputText id="precio" value="#{producto.precio}" />
+            	<h:message for="precio" />
+			</h:column>
+		</h:dataTable>
+		<h:commandButton id="update" value="Actualizar" action="#{productoBean.actualizarProducto(producto)}">
+	        <f:ajax execute="@form" render="@all" />
+	    </h:commandButton>
+	</h:form>
+	
+</h:body>
+
+</html>

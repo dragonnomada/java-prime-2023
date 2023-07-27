@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:demos="http://xmlns.jcp.org/jsf/composite/demos"
+	xmlns:t="http://xmlns.jcp.org/jsf/composite/components">
+
+<h:head>
+	<title>Composite</title>
+</h:head>
+
+<h:body>
+
+	<h1>Composite</h1>
+
+	<h2>
+		<h:outputText value="Hello" />
+	</h2>
+
+	<demos:demo />
+	<demos:demo title="Hello world" />
+
+	<div>
+		<h:form>
+			<h:outputLabel for="time:hour" value="Time" />
+			<t:inputLocalTime id="time" value="#{schedule.time}">
+				<f:ajax execute="time" render=":output" />
+			</t:inputLocalTime>
+		</h:form>
+		<p>
+			You have selected:
+			<h:outputText id="output" value="#{schedule.time}" />
+		</p>
+	</div>
+
+</h:body>
+
+</html>

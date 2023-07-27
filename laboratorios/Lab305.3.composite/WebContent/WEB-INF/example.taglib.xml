@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd"
+	version="2.2">
+	
+	<namespace>http://example.com/tags</namespace>
+	<short-name>t</short-name>
+	
+	<composite-library-name>components</composite-library-name>
+
+	<tag>
+		<description>inputLocalTime</description>
+		<tag-name>inputLocalTime</tag-name>
+		<component>
+			<component-type>InputFile</component-type>
+		</component>
+	</tag>
+
+	<!-- <tag>
+		<description>Renders a HTML list.</description>
+		<tag-name>dataList</tag-name>
+		<component>
+			<component-type>project.DataList</component-type>
+		</component>
+	</tag>
+
+	<tag>
+		<description>Extends h:inputFile with new "accept" attribute.</description>
+		<tag-name>inputFile</tag-name>
+		<component>
+			<component-type>project.InputFile</component-type>
+		</component>
+	</tag>
+
+	<tag>
+		<tag-name>viewParamValidationFailed</tag-name>
+		<handler-class>com.example.project.view.taghandler.ViewParamValidationFailed</handler-class>
+	</tag>
+
+	<tag>
+		<tag-name>convertLocalDate</tag-name>
+		<converter>
+			<converter-id>project.ConvertLocalDate</converter-id>
+		</converter>
+	</tag> -->
+</facelet-taglib>
