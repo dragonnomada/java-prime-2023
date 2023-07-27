@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Forms 5</title>
+</h:head>
+
+<h:body>
+
+	<h1>Conversiones</h1>
+
+	<h:form>
+		<h:inputText value="#{bean.price}">
+			<f:validateDoubleRange minimum="0.01" maximum="100000.0" />
+			<f:ajax event="keyup" render=":Resumen" />
+		</h:inputText>
+		
+		<h:inputText value="#{bean.date}">
+		    <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+		    <f:passThroughAttribute name="placeholder" value="Fecha"></f:passThroughAttribute>
+		    <f:passThroughAttribute name="type" value="date"></f:passThroughAttribute>
+		    <f:ajax event="change" render=":Resumen" />
+		</h:inputText>
+	</h:form>
+	
+	<h:panelGroup id="Resumen">
+		<div>
+			Precio: 
+			<h:outputText value="#{bean.price}">
+				<f:convertNumber type="currency" locale="es_ES" />
+			</h:outputText>
+		</div>
+		
+		<div>
+			Fecha: 
+			<h:outputText value="#{bean.date}">
+				<f:convertDateTime type="date" pattern="EEEEE, d 'de' LLLLL 'de' yyyy" />
+			</h:outputText>
+		</div>
+	</h:panelGroup>
+
+</h:body>
+
+</html>
+
