@@ -1,0 +1,11 @@
+.tag-title.title > h1 {
+	padding-botton: 0px;
+	
+	color: cornflowerblue;
+	
+	border-bottom: 1px solid hotpink;
+}
+
+.tag-title.subtitle {
+	color: hotpink;
+}

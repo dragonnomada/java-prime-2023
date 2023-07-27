@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<h:outputStylesheet library="tag-styles" name="tag-title.css" />
+
+	<div class="tag-title #{empty type ? 'title default' : type}">
+		<c:choose>
+			<c:when test="#{ type eq 'title' }">
+				<h1>#{value}</h1>
+			</c:when>
+			<c:when test="#{ type eq 'subtitle' }">
+				<h2>#{value}</h2>
+			</c:when>
+			<c:when test="#{ type eq 'header' }">
+				<h3>#{value}</h3>
+			</c:when>
+			<c:when test="#{ type eq 'legend' }">
+				<h4>#{value}</h4>
+			</c:when>
+			<c:when test="#{ type eq 'bold' }">
+				<p>
+					<strong>#{value}</strong>
+				</p>
+			</c:when>
+			<c:otherwise>
+				<h1>#{value}</h1>
+			</c:otherwise>
+		</c:choose>
+	</div>
+
+</ui:composition>

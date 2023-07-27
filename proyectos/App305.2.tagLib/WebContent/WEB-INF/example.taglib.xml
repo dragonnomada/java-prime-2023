@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd"
+    version="2.2">
+    
+    <namespace>http://example.com/tags</namespace>
+    <short-name>t</short-name>
+    
+    <tag>
+    
+    	<description>
+	    	Muesta un título con diferentes formas 
+	    	(title [h1], subtitle [h2], header [h3], legend [h4], bold [p + strong])
+    	</description>
+    
+    	<tag-name>title</tag-name>
+    	
+    	<source>tags/title.xhtml</source>
+    	
+    	<attribute>
+    		<description>El valor o texto que será mostrado en título</description>
+    		<name>value</name>
+    		<required>true</required>
+    		<type>java.lang.String</type>
+    	</attribute>
+    	
+    	<attribute>
+    		<description>El tipo de título en texto: title, subtitle, header, legend, bold</description>
+    		<name>type</name>
+    		<required>false</required>
+    		<type>java.lang.String</type>
+    	</attribute>
+    	
+    </tag>
+    
+</facelet-taglib>

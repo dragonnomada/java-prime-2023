@@ -1,0 +1,25 @@
+<ui:composition template="/WEB-INF/templates/base.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:t="http://example.com/tags">
+	
+	<ui:param name="appTitle" value="Etiquetas Personalizadas"></ui:param>
+	
+	<ui:define name="content">
+	    <h1>Etiquetas personalizadas</h1>
+	    
+	    <t:title type="title" value="Hola mundo" />
+	    
+	    <t:title type="subtitle" value="Soy un subtítulo" />
+	    
+	    <t:title type="header" value="Sección 1" />
+	    
+	    <t:title type="legend" value="Contenido:" />
+
+	    <t:title type="bold" value="Importante: No hagas mal uso de JSF" />
+	    
+	    <t:title value="Este es un título básico" />
+	</ui:define>
+	
+</ui:composition>

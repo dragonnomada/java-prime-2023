@@ -1,0 +1,44 @@
+body {
+	
+	background-color: gainsboro;
+	
+	padding: 48px;
+	
+}
+
+#app {
+	
+	border: 1px solid gray;
+	
+	padding: 24px;
+	
+	background-color: whitesmoke;
+	
+}
+
+.formProductoAdd {
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	padding: 12px;
+	
+}
+
+.formProductoAdd form {
+	
+	width: 80%;
+	
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.formProductoAdd form div {
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+}

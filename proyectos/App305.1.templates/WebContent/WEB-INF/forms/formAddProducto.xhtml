@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	<div class="formProductoAdd">
+	
+		<h1>Agregar Nuevo Produto</h1>
+	
+		<c:if test="#{not empty descripcion}">
+			<h2>#{descripcion}</h2>
+		</c:if>
+	
+		<h:form>
+			<div>
+				<h:inputText value="#{nombre}" a:placholder="Nombre" />
+			</div>
+			<div>
+				<h:inputText value="#{precio}" a:type="number" />
+			</div>
+			<div>
+				<h:inputText value="#{fechaReserva}" a:type="date" >
+					<f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+				</h:inputText>
+			</div>
+			<div>
+				<h:commandButton value="Agregar">
+					<f:actionListener binding="#{onSubmit}" />
+				</h:commandButton>
+			</div>
+		</h:form>
+		
+		<div>
+			<ui:insert name="panel" />
+		</div>
+	
+	</div>
+
+</ui:composition>
