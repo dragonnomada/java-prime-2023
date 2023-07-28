@@ -1,0 +1,163 @@
+# PF - Prime Faces Kitchen
+
+> `src/main/webapp/index.xhtml`
+
+```xml
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Prime Faces</title>
+</h:head>
+
+<h:body>
+
+    <h1>
+        <h:outputText value="Prime Faces Kitchen" />
+    </h1>
+
+    <div>
+        <p:breadCrumb>
+            <p:menuitem value="Inicio" url="#home" />
+            <p:menuitem value="¿Quiénes Somos?" url="#about" />
+            <p:menuitem value="Productos" url="#products" />
+            <p:menuitem value="Servicios" url="#services" />
+            <p:menuitem value="Contacto" url="#contact" />
+        </p:breadCrumb>
+    </div>
+
+    <div>
+        <p:accordionPanel>
+            <p:tab title="Título 1">
+                <h:outputText value="Hola" />
+            </p:tab>
+            <p:tab title="Título 2">
+                <h:outputText value="Mundo" />
+            </p:tab>
+            <p:tab title="Título 3">
+                <h:outputText value="Mundial" />
+            </p:tab>
+        </p:accordionPanel>
+    </div>
+
+    <p:panel>
+        <p:badge value="4">
+            <p:avatar size="xlarge" shape="circle">
+                <p:graphicImage library="img" name="batman.jpg" width="100"
+                    height="100" />
+            </p:avatar>
+        </p:badge>
+    </p:panel>
+
+    <p:panel>
+        <p:avatar icon="pi pi-search" />
+    </p:panel>
+
+    <p:panel>
+        <p:avatar label="AS" />
+    </p:panel>
+
+    <p:panel>
+        <p:barcode value="0123456789" type="codabar" />
+    </p:panel>
+
+    <p:panel id="pnl" header="My Panel">
+        <h:form>
+            <p:commandButton id="saveBtn" value="Save"
+                onstart="PF('blockUIWidget').show()">
+                <f:actionListener binding="#{saveBean.save()}" />
+                <f:ajax execute="@form" />
+            </p:commandButton>
+        </h:form>
+    </p:panel>
+    <p:blockUI block="pnl" widgetVar="blockUIWidget" />
+    
+    <p><h:outputText id="date" value="#{dateBean.date}" >
+        <f:convertDateTime type="date" pattern="EEEEE, dd/MM/yyyy" />
+    </h:outputText></p>
+    
+    <p:calendar value="#{dateBean.date}" update=":date" />
+</h:body>
+
+</html>
+```
+
+> **SaveBean**
+
+```java
+package com.example.bean;
+
+import java.util.logging.Logger;
+
+import javax.ejb.Asynchronous;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import org.primefaces.PrimeFaces;
+
+@ManagedBean
+@ViewScoped
+public class SaveBean {
+
+    Logger logger = Logger.getLogger("SaveBean");
+    
+    @Asynchronous
+    public void save() {
+        logger.info("Saving...");
+        
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            //
+        }
+        
+        PrimeFaces.current().executeScript("PF('blockUIWidget').hide()");
+    }
+    
+}
+```
+
+> `DateBean`
+
+```java
+package com.example.bean;
+
+import java.util.Date;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+@ManagedBean
+@ViewScoped
+public class DateBean {
+    
+    Logger logger = Logger.getLogger("DateBean");
+    
+    private Date date;
+
+    @PostConstruct
+    public void init() {
+        date = new Date();
+        logger.info("Initial Date: " + date);
+    }
+    
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        logger.info("Date: " + date);
+        this.date = date;
+    }
+
+}
+```
