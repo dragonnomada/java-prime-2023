@@ -51,6 +51,20 @@
 </project>
 ```
 
+## `src/main/webapp/WEB-INF/beans.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd"
+    version="2.0"
+    bean-discovery-mode="annotated">
+    
+</beans>
+```
+
 ## `src/main/webapp/WEB-INF/faces-config.xml`
 
 ```text
@@ -68,11 +82,11 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
     version="2.3">
 
-    <managed-bean>
+    <!-- <managed-bean>
         <managed-bean-name>bean</managed-bean-name>
         <managed-bean-class>com.example.bean.Bean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+    </managed-bean> -->
 
 </faces-config>
 ```
