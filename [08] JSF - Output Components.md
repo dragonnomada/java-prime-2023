@@ -6,10 +6,10 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	  xmlns:h="http://xmlns.jcp.org/jsf/html"
-	  xmlns:f="http://xmlns.jcp.org/jsf/core"
-	  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 <h:head>
     <title>Title</title>
@@ -59,9 +59,11 @@
 
 ## Panel-Based Output Components
 
+```text
     <h:panelGroup>                          <span>
     <h:panelGroup layout="block">           <div>
     <h:panelGrid><h:panelGroup>             <table>...<td>
+```
 
 ```xml
 <h:panelGrid columns="3">
@@ -223,10 +225,12 @@ public void update(Iterable<Product> products) {
 
 ## Pass-Through Elements
 
+```text
     xmlns:jsf="http://xmlns.jcp.org/jsf"
 
     <main>, <article>, <section>, <aside>, 
     <nav>, <header>, <footer>, <div>, ...
+```
 
 ```xml
 <main id="main">...</main>
@@ -247,6 +251,7 @@ public void update(Iterable<Product> products) {
 </h:commandButton>
 ```
 
+```text
     Passthrough Elements Recognized by JSF
 
     Passthrough HTML element            Implied JSF component
@@ -275,6 +280,7 @@ public void update(Iterable<Product> products) {
     <select jsf:id="…">                 <h:selectOneListbox>
     <select jsf:id="…" multiple="*">    <h:selectManyListbox>
     <* jsf:id="…">                      <h:panelGroup>
+```
 
 > **Ejemplo de equivalencias**
 
@@ -291,4 +297,3 @@ public void update(Iterable<Product> products) {
 <a jsf:outcome="contact">Contact</a>
 <!-- <h:link outcome="contact" value="Contact" /> -->
 ```
-

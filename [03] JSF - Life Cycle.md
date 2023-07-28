@@ -1,11 +1,13 @@
 # JSF - Life Cycle
 
+```text
     - Restore View Phase (First Phase)
     - Apply Request Values Phase (Second Phase)
     - Process Validations Phase (Third Phase)
     - Update Model Values Phase (Fourth Phase)
     - Invoke Application Phase (Fifth Phase)
     - Render Response Phase (Sixth Phase)
+```
 
 ## Restore View Phase (First Phase)
 
@@ -23,7 +25,7 @@ Si la petición es `postback` se restaurará el *view state* identificado por el
 
 Si la petición es `postback` se lanzará el evento `PostRestoreStateEvent`.
 
-Al final de la fase si el árbol completo aún no ha sido construido, entonces salta a la **sexta fase** (*Render Response Phase*). 
+Al final de la fase si el árbol completo aún no ha sido construido, entonces salta a la **sexta fase** (*Render Response Phase*).
 
 ## Apply Request Values Phase (Second Phase)
 
@@ -68,17 +70,16 @@ Si el `Converter` no arroja `ConverterException` se invocará `Validator#validat
 Cuando no se arrojan `ConverterException` o `ValidatorException`, se invocará `UIInput#setValue()` con el valor convertido y validado.
 
 > `UIInput#isLocalValueSet()` regresará `true`.
-
+>
 > `UIInput#setSubmittedValue()` será invocado con `null`.
 
 Cuando se arroja `ConverterException` o `ValidatorException`, se invocará `UIInput#setValid()` con `false`.
 
 > El mensaje de la excepción serpa agregado al *faces context* mediante `FacesContext#addMessage()`.
-
+>
 > Se invocará `FacesContext#setValidationFailed` con `true`.
 
 Si `FacesContext#isValidationFaild()` es `true` se avanzará inmediatamente a la **sexta fase** (*Render Response Phase*).
-
 
 ## Update Model Values Phase (Fourth Phase)
 
@@ -91,11 +92,11 @@ Finalmente se invocará `UIViewRoot#broadCastEvents()` para disparar cada `Faces
 En los componentes HTML, los `UIInput` tienen un comportamiento aquí.
 
 > Después de llamar al `processValidators()` en cada hijo y *facet*, se invocará `UIInput#updateModel()` en el componente.
-
+>
 > Cuando `UIInput#isValid()` y `UIInput#isLocalValueSet()` son `true`, se invocará el `setter` asociado al atributo `value` con `getLocalValue()` como argumento.
-
+>
 > Imediatamente después se invocará `UIInput#setValue()` con `null`
-
+>
 > Finalmente se borrará la bandera `UIInput#isLocalValueSet()`.
 
 Si surge un `RuntimeExcepción` aquí (generalmente causado por el `setter`), se invocará `UIInput#setIsValid()` con `false`.
@@ -123,13 +124,13 @@ Entonces se construirá el árbol completo basado en la definición de vista.
 Cuando el árbol está presente se dispara `PreRenderViewEvent` en el `UIViewRoot`.
 
 > Este invoca `UIComponent#encodeAll()` desde el `UIViewRoot`.
-
+>
 > Después se invoca `PostRenderViewEvent` en el `UIViewRoot`.
 
 El `UIComponent#encodeAll()` invocará primero `encodeBegin()` en el componente.
 
 > Si `UIComponent#rendersChildren()` regresa `true`, se invocará `encodeChildren()` sobre el componente.
-
+>
 > Sino se invocará `UIComponent#encodeAll()` en cada hijo.
 
 Finalmente se invocará `encodeEnd()` sobre el componente.

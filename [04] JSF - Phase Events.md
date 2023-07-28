@@ -2,6 +2,7 @@
 
 Los eventos de fase son:
 
+```text
     • PhaseId.ANY_PHASE            (0)
     • PhaseId.RESTORE_VIEW         (1)
     • PhaseId.APPLY_REQUEST_VALUES (2)
@@ -9,6 +10,7 @@ Los eventos de fase son:
     • PhaseId.UPDATE_MODEL_VALUES  (4)
     • PhaseId.INVOKE_APPLICATION   (5)
     • PhaseId.RENDER_RESPONSE      (6)
+```
 
 ## Escuchar un evento de fase
 
@@ -36,6 +38,7 @@ Interfaz: `javax.faces.event.PhaseListener`
 Interfaz: `javax.faces.event.ComponentSystemEvent`
 Interfaz: `javax.faces.event.ComponentSystemEventListener`
 
+```text
     • PreRemoveFromViewEvent
 
     Fired when a component is about to be 
@@ -106,6 +109,7 @@ Interfaz: `javax.faces.event.ComponentSystemEventListener`
     
     Fired when the UIViewRoot is about to
     destroy the view scope.
+```
 
 > **Recibir el evento en un bean** 
 

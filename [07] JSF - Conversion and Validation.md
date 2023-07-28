@@ -2,7 +2,7 @@
 
 ## Standard Converters
 
-
+```text
     BigDecimalConverter     javax.faces.BigDecimal
                             - java.math.BigDecimal
 
@@ -47,6 +47,7 @@
 
     ShortConverter          javax.faces.Short
                             - short/java.lang.Short
+```
 
 > **Ejemplo de uso**
 
@@ -57,9 +58,11 @@
 
 ## `<f:convertNumber>`
 
+```text
     <f:convertNumber type="number" />
     <f:convertNumber type="currency" />
     <f:convertNumber type="percent" />
+```
 
 > **Ejemplo de uso**
 
@@ -69,6 +72,7 @@
 </h:outputText>
 ```
 
+```text
     en_US   English
     es_ES   Spanish
     fr_FR   French
@@ -78,6 +82,7 @@
     ja_JP   Japanese
     ar_AE   Arabic
     ru_RU   Russian
+```
 
 > **Otro ejemplo de uso**
 
@@ -88,6 +93,7 @@
 
 ## `<f:convertDateTime>`
 
+```text
     <f:convertDateTime type>
 
     date (default)  java.util.Date
@@ -99,6 +105,7 @@
     offsetTime      java.time.OffsetTime        *
     offsetDateTime  java.time.OffsetDateTime    *
     zonedDateTime   java.time.ZonedDateTime     *
+```
 
 > **Ejemplo de uso**
 
@@ -116,6 +123,7 @@
 </h:inputText>
 ```
 
+```text
     Date patterns
 
     Symbol  Meaning                     Presentation      Examples
@@ -143,9 +151,11 @@
     n       nano-of-second              number            987654321
 
     EEEEE MMMMM yyyy HH:mm:ss.SSSZ -> Wednesday November 2017 18:47:42.787+0530
+```
 
 ## Standard Validators
 
+```text
     LongRangeValidator          javax.faces.LongRange 
         <f:validateLongRange>   - java.lang.Number
 
@@ -166,6 +176,7 @@
 
     n/a                         n/a
         <f:validateWholeBean>   - java.lang.Object *
+```
 
 ## `<f:validateLongRange>/<f:validateDoubleRange>`
 
@@ -209,37 +220,39 @@
 </h:inputText>
 ```
 
+```text
     Regex Character classes
 
-    No.	Character Class     Description
-    1	[abc]	            a, b, or c (simple class)
-    2	[^abc]	            Any character except a, b, or c (negation)
-    3	[a-zA-Z]	        a through z or A through Z, inclusive (range)
-    4	[a-d[m-p]]	        a through d, or m through p: [a-dm-p] (union)
-    5	[a-z&&[def]]	    d, e, or f (intersection)
-    6	[a-z&&[^bc]]	    a through z, except for b and c: [ad-z] (subtraction)
-    7	[a-z&&[^m-p]]	    a through z, and not m through p: [a-lq-z](subtraction)
+    No. Character Class     Description
+    1   [abc]               a, b, or c (simple class)
+    2   [^abc]              Any character except a, b, or c (negation)
+    3   [a-zA-Z]            a through z or A through Z, inclusive (range)
+    4   [a-d[m-p]]          a through d, or m through p: [a-dm-p] (union)
+    5   [a-z&&[def]]        d, e, or f (intersection)
+    6   [a-z&&[^bc]]        a through z, except for b and c: [ad-z] (subtraction)
+    7   [a-z&&[^m-p]]       a through z, and not m through p: [a-lq-z](subtraction)
 
-    Regex	Description
-    X?	    X occurs once or not at all
-    X+	    X occurs once or more times
-    X*	    X occurs zero or more times
-    X{n}	X occurs n times only
-    X{n,}	X occurs n or more times
-    X{y,z}	X occurs at least y times but less than z times
+    Regex   Description
+    X?      X occurs once or not at all
+    X+      X occurs once or more times
+    X*      X occurs zero or more times
+    X{n}    X occurs n times only
+    X{n,}   X occurs n or more times
+    X{y,z}  X occurs at least y times but less than z times
 
     Regex Metacharacters
 
-    Regex	Description
-    .	    Any character (may or may not match terminator)
-    \\d	    Any digits, short of [0-9]
-    \\D	    Any non-digit, short for [^0-9]
-    \\s	    Any whitespace character, short for [\\t\\n\\x0B\\f\\r]
-    \\S	    Any non-whitespace character, short for [^\\s]
-    \\w	    Any word character, short for [a-zA-Z_0-9]
-    \\W	    Any non-word character, short for [^\\w]
-    \\b	    A word boundary
-    \\B	    A non word boundary
+    Regex   Description
+    .       Any character (may or may not match terminator)
+    \\d     Any digits, short of [0-9]
+    \\D     Any non-digit, short for [^0-9]
+    \\s     Any whitespace character, short for [\\t\\n\\x0B\\f\\r]
+    \\S     Any non-whitespace character, short for [^\\s]
+    \\w     Any word character, short for [a-zA-Z_0-9]
+    \\W     Any non-word character, short for [^\\w]
+    \\b     A word boundary
+    \\B     A non word boundary
+```
 
 ## Custom Converters
 
@@ -251,6 +264,7 @@ Excepción:  `throw new ConverterException(new FacesMessage("Invalid product ID"
 
 Implementaciones:
 
+```text
     @Override
     public String getAsString(FacesContext context, 
                               UIComponent component, 
@@ -260,6 +274,7 @@ Implementaciones:
     public Product getAsObject(FacesContext context, 
                                UIComponent component, 
                                String id) { ... }
+```
 
 > **Ejemplos de uso**
 
@@ -281,10 +296,12 @@ Excepción: `throw new ValidatorException(new FacesMessage("Email already in use
 
 Implementaciones:
 
+```text
     @Override
     public void validate(FacesContext context, 
                          UIComponent component, 
                          String email) throws ValidatorException { ... }
+```
 
 Nota: `String oldEmail = (String) ((UIInput) component).getValue();`
 

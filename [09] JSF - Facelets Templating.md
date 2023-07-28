@@ -2,11 +2,13 @@
 
 ## XHTML
 
+```text
     NOTA:
 
     Las plantillas y componentes base generalmente se colocan
     en META-INF para evitar que los usuarios las consulten directamente,
     es decir, META-INF es una carpeta protegida en las rutas de web.xml.
+```
 
 > `/WEB-INF/templates/base.xhtml`
 
@@ -15,26 +17,26 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-	<title>#{title}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>#{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </h:head>
 
 <h:body>
-	<header>
-		<ui:include src="/WEB-INF/includes/header.xhtml" />
-	</header>
-	<main>
-		<ui:insert name="content" />
-	</main>
-	<footer>
-		<ui:include src="/WEB-INF/includes/footer.xhtml"></ui:include>
-	</footer>
+    <header>
+        <ui:include src="/WEB-INF/includes/header.xhtml" />
+    </header>
+    <main>
+        <ui:insert name="content" />
+    </main>
+    <footer>
+        <ui:include src="/WEB-INF/includes/footer.xhtml"></ui:include>
+    </footer>
 </h:body>
 
 </html>
@@ -44,10 +46,10 @@
 
 ```xml
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
-	<h1>Inicio de la página</h1>
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h1>Inicio de la página</h1>
 </ui:composition>
 ```
 
@@ -55,10 +57,10 @@
 
 ```xml
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
-	<h1>Fin de la página</h1>
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h1>Fin de la página</h1>
 </ui:composition>
 ```
 
@@ -66,20 +68,20 @@
 
 ```xml
 <ui:composition template="/WEB-INF/templates/base.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-	<ui:param name="title" value="My App :D" />
+    <ui:param name="title" value="My App :D" />
 
-	<ui:define name="content">
+    <ui:define name="content">
 
-		<h1>Hello world :D</h1>
+        <h1>Hello world :D</h1>
         
-	</ui:define>
+    </ui:define>
 
 </ui:composition>
 ```
@@ -92,10 +94,10 @@
 <!-- Crea una plantilla para reutilizar la vista -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
-	
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
     <!-- (modifica la interfaz de la plantilla aquí) -->
     <!-- <html> -->
 
@@ -179,4 +181,3 @@
 ## Tag Files
 
 Configuración: `/WEB-INF/example.taglib.xml`
-

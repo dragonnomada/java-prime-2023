@@ -4,6 +4,7 @@ Espacio de nombre: `xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"`
 
 Existen algunas implementaciones de las JSTL Core Tags de JSP migradas a JSF.
 
+```text
     <c:set>
 
     <c:if>
@@ -15,6 +16,7 @@ Existen algunas implementaciones de las JSTL Core Tags de JSP migradas a JSF.
     <c:forEach>
     
     <c:catch>
+```
 
 > **Ejemplo de `<c:set>`**
 

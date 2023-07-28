@@ -369,6 +369,7 @@ Etiqueta: `<f:ajax>`
 
 Se logra con la interfaz `ClientBehaviorHolder`.
 
+```text
     Componentes que implementan `ClientBehaviorHolder`
 
     HtmlBody, HtmlCommandButton, HtmlCommandLink, HtmlDataTable, HtmlForm,
@@ -387,6 +388,7 @@ Se logra con la interfaz `ClientBehaviorHolder`.
     <h:outputLink>, <h:panelGrid>, <h:panelGroup>, <h:selectBooleanCheckbox>,
     <h:selectManyCheckbox>, <h:selectManyListbox>, <h:selectManyMenu>,
     <h:selectOneListbox>, <h:selectOneMenu>, <h:selectOneRadio> and <f:websocket>
+```
 
 * **Importante:** Se requiere estar contenido en `<h:form>` y `<h:head>` debe estar presente ya que incluye a `jsf.js` que contiene la función principal `jsf.
 ajax.request()`.
