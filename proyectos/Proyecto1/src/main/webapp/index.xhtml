@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Proyecto 1 - Administrador de Contratos</title>
+</h:head>
+
+<h:body>
+
+	<h1>Administrador de Contratos</h1>
+	
+	<h:messages />
+
+	<!-- Formulario para agregar contrato -->
+	<div>
+		<h:form>
+			<div>
+				<h:outputLabel for="contratoNombre" value="Nombre" />
+				<h:inputText id="contratoNombre" value="#{contratoBean.nombre}" />
+			</div>
+			<div>
+				<h:outputLabel for="contratoRFC" value="RFC" />
+				<h:inputText id="contratoRFC" value="#{contratoBean.rfc}" />
+			</div>
+			<h:commandButton value="Agregar Contrato" action="#{contratoBean.agregar()}" >
+				<f:ajax execute="@form" render=":contratosTabla" />
+			</h:commandButton>
+		</h:form>
+	</div>
+	
+	<!-- Tabla de Contratos -->
+	<div>
+		<h:dataTable id="contratosTabla" value="#{contratoBean.getContratos()}" var="contrato">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				#{contrato.id}
+			</h:column>
+			<h:column>
+				<f:facet name="header">NOMBRE</f:facet>
+				#{contrato.nombre}
+			</h:column>
+			<h:column>
+				<f:facet name="header">RFC</f:facet>
+				#{contrato.rfc}
+			</h:column>
+			<h:column>
+				<f:facet name="header">FECHA</f:facet>
+				<h:outputText value="#{contrato.fecha}">
+					<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" />
+				</h:outputText>
+			</h:column>
+		</h:dataTable>
+	</div>
+
+</h:body>
+
+</html>
