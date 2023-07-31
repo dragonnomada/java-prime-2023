@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Prime Faces Ajax</title>
+</h:head>
+
+<h:body>
+
+	<h1 style="color: blue;">Prime Faces Ajax</h1>
+
+	<div>
+		<h:outputText id="title" value="#{simpleView.title}" />
+	</div>
+	<div>
+		<h:outputText id="title2" value="#{simpleView.title}" />
+	</div>
+
+	<h:form>
+		<h:inputText a:placeholder="Ingresa hola o mundo" value="#{simpleView.title}" >
+			<!-- Agrega un controlador(handlerEvent) en la fase 5 -->
+			<f:ajax event="change" render=":title" />
+			<f:ajax event="keyup" render=":title2 :mensajes :suggestionsList :menu" listener="#{simpleView.updateSuggestions}" />
+			<f:ajax event="focus" listener="#{simpleView.titleFocus}" render=":mensajes" />
+			<f:ajax event="blur" listener="#{simpleView.titleBlur}" render=":mensajes" />
+		</h:inputText>
+	</h:form>
+	
+	<div>
+		<h:messages id="mensajes" />
+	</div>
+	
+	<h:panelGroup layout="block" id="suggestionsList">
+		<ol>
+			<ui:repeat value="#{simpleView.suggestions}" var="suggestion">
+				<li><h:outputText value="#{suggestion}" /></li>
+			</ui:repeat>
+		</ol>
+	</h:panelGroup>
+	
+	<h:selectOneMenu id="menu">
+		<f:selectItems value="#{simpleView.suggestions}"></f:selectItems>
+	</h:selectOneMenu>
+
+</h:body>
+
+</html>

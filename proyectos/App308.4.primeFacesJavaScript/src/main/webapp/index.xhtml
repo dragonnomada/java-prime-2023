@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Prime Faces JavaScript</title>
+</h:head>
+
+<h:body>
+
+	<h1 style="color: red;">Prime Faces JavaScript v1.0</h1>
+
+	<!-- Creamos una acción remota que se podrá ejecutar desde JavaScript -->
+	<!-- En Javascript usaremos: updateCoords([ { name: "param1", value: "..." }, ... ]) -->
+	<p:remoteCommand name="updateCoords" action="#{locationBean.updateCoords}" update="@obs(position)" />
+
+	<p:growl showDetail="true">
+		<p:autoUpdate />
+	</p:growl>
+
+	<div>
+		<p:panel>
+			<p:autoUpdate on="position" />
+			<span>#{locationBean.latitud}</span>
+			<span>#{locationBean.longitud}</span>
+		</p:panel>
+	</div>
+
+	<h:form>
+		<!-- Creamos un botón que ejecute una función de Javascript -->
+		<!-- En Javascript definimos: requestCoords -->
+		<p:commandButton value="Solicita ubicación">
+			<p:ajax event="click" onstart="requestCoords()" />
+		</p:commandButton>
+		
+		<p:poll interval="10" onstart="requestCoords()"/>
+	</h:form>
+
+	<script>
+		/* Define la función requestCoords */
+		/* Que será ejecutada al darle click al botón */
+		/* Y recuperará la ubicación del usuario que le da el navegador (si le da permisos) */
+		function requestCoords() {
+			console.log('Solicitando la ubicación...');
+			if (navigator.geolocation) {
+			  navigator.geolocation.getCurrentPosition(function (position) {
+				  console.log(position.coords.latitude, position.coords.longitude);
+				  /* Enviamos la ubicación obtenida hacía el bean mediante el comando remoto */
+				  /* Es decir, pdateCoords([ { name: "lat", value: "..." }, ... ]) */
+				  updateCoords([
+					  { name: "lat", value: position.coords.latitude },
+					  { name: "lon", value: position.coords.longitude },
+				  ]);
+			  });
+			}
+		}
+	</script>
+
+</h:body>
+
+</html>

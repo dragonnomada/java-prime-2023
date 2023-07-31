@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Prime Faces Ajax</title>
+</h:head>
+
+<h:body>
+
+	<h1 style="color: red;">Prime Faces Ajax</h1>
+	
+	<p:growl showDetail="true" >
+		<p:autoUpdate />
+	</p:growl>
+	
+	<h:form>
+		<span class="ui-float-label">
+			<p:inputText value="#{simpleView.title}">
+				<!-- f:ajax event -> listener -> render -->
+				<!-- p:ajax event -> listener -> update -->
+				<p:ajax event="keyup" listener="#{simpleView.updateSuggestions}" update="@obs(suggestionsUpdated)" />
+			</p:inputText>
+			<p:outputLabel for="@previous" value="Título" />
+		</span>
+	</h:form>
+
+	<div>
+		<p:tag value="#{simpleView.title}">
+			<p:autoUpdate />
+		</p:tag>
+	</div>
+
+	<div>
+		<p:selectOneMenu>
+			<p:autoUpdate on="suggestionsUpdated" />
+			<f:selectItems value="#{simpleView.suggestions}" />
+			<f:facet name="footer">
+				<div>Sugerencias: #{simpleView.totalSuggestions()}</div>
+			</f:facet>
+		</p:selectOneMenu>
+	</div>
+	
+	<div>
+		<p:fieldset legend="Sugerencias">
+			<p:autoUpdate on="suggestionsUpdated" />
+			<ui:repeat value="#{simpleView.suggestions}" var="suggestion">
+				<p:tag value="#{suggestion}"></p:tag>
+			</ui:repeat>
+		</p:fieldset>
+	</div>
+
+</h:body>
+
+</html>
