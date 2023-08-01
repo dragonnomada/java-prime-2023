@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Prime Faces Dialogs</title>
+
+	<link rel="stylesheet"
+		href="https://unpkg.com/primeflex@^3/primeflex.css" />
+</h:head>
+
+<h:body styleClass="surface-ground text-color">
+
+	<div
+		class="surface-card px-5 py-2 flex sm:flex-row justify-content-between align-items-center flex-column">
+		<h1 class="text-primary">Prime Faces Dialogs</h1>
+		<div>
+			<h:form styleClass="flex flex-column flex-row">
+				<span class="pb-2">Selecciona un tema:</span>
+				<p:selectOneMenu value="#{themeBean.currentTheme}">
+					<f:selectItems value="#{themeBean.themes}" />
+					<p:ajax update="@all" />
+				</p:selectOneMenu>
+			</h:form>
+		</div>
+	</div>
+
+	<!-- <p:messages globalOnly="true">
+		<p:autoUpdate />
+	</p:messages> -->
+
+	<div class="surface-card px-6 py-5 mb-8">
+		<h2 class="text-color-secondary">Bienvenido</h2>
+		<p:panel>
+			<p:autoUpdate on="modal1_success" />
+			<h3>
+				Tipo de cambio actual:
+				<h:outputText value="#{homeBean.currentTipoCambio()}">
+					<f:convertNumber type="currency" />
+				</h:outputText>
+			</h3>
+		</p:panel>
+	</div>
+
+	<p:growl showDetail="true">
+		<p:autoUpdate />
+	</p:growl>
+
+	<p:panel>
+		<h:form>
+			<p:commandButton value="Abrir modal" icon="pi pi-cog">
+				<p:ajax event="click" onstart="PF('modal1').show()" />
+			</p:commandButton>
+
+			<p:commandButton value="Abrir modal 2" icon="pi pi-cog">
+				<p:ajax event="click" onstart="PF('modal2').show()" />
+			</p:commandButton>
+		</h:form>
+	</p:panel>
+
+
+	<p:dialog widgetVar="modal1" modal="true">
+		<p:panel>
+			<h:form>
+				<p:remoteCommand name="configSubmit" action="#{modalBean.submit()}"
+					update="@obs(modal1_success)" oncomplete="PF('modal1').hide()" />
+
+				<h1>Configuraciones</h1>
+				<div class="field flex flex-column">
+					<p:outputLabel for="config1" value="Tipo de cambio:" />
+					<span class="ui-input-icon-left"> <i class="pi pi-dollar" />
+						<p:inputText value="#{modalBean.tipoCambio}" a:type="number"
+							id="config1" />
+					</span>
+				</div>
+			</h:form>
+		</p:panel>
+
+		<f:facet name="footer">
+			<h:form>
+				<p:commandButton value="Cancelar" icon="pi pi-times">
+					<p:ajax oncomplete="PF('modal1').hide()" />
+				</p:commandButton>
+				<p:commandButton value="Aceptar" icon="pi pi-check">
+					<p:ajax onsuccess="configSubmit()" />
+				</p:commandButton>
+			</h:form>
+		</f:facet>
+	</p:dialog>
+
+	<h:form id="myForm2">
+		<p:dialog widgetVar="modal2" modal="true">
+			<p:panel>
+				<h1>Configuraciones</h1>
+				<div class="field flex flex-column">
+					<p:outputLabel for="config2" value="Tipo de cambio:" />
+					<span class="ui-input-icon-left"> <i class="pi pi-dollar" />
+						<p:inputText value="#{modalBean.tipoCambio}" a:type="number"
+							id="config2" />
+					</span>
+				</div>
+			</p:panel>
+
+			<f:facet name="footer">
+				<h:form>
+					<p:commandButton value="Cancelar" icon="pi pi-times">
+						<p:ajax oncomplete="PF('modal2').hide()" />
+					</p:commandButton>
+					<p:commandButton value="Aceptar" icon="pi pi-check"
+						action="#{modalBean.submit()}" update="@obs(modal1_success)"
+						oncomplete="PF('modal2').hide()" />
+				</h:form>
+			</f:facet>
+		</p:dialog>
+	</h:form>
+
+</h:body>
+
+</html>

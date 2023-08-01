@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Prime Faces Dialogs</title>
+
+	<link rel="stylesheet"
+		href="https://unpkg.com/primeflex@^3/primeflex.css" />
+</h:head>
+
+<h:body styleClass="surface-ground text-color">
+
+	<div
+		class="surface-card px-5 py-2 flex sm:flex-row justify-content-between align-items-center flex-column">
+		<h1 class="text-primary">Prime Faces Dialogs</h1>
+		<div>
+			<h:form styleClass="flex flex-column flex-row">
+				<span class="pb-2">Selecciona un tema:</span>
+				<p:selectOneMenu value="#{themeBean.currentTheme}">
+					<f:selectItems value="#{themeBean.themes}" />
+					<p:ajax update="@all" />
+				</p:selectOneMenu>
+			</h:form>
+		</div>
+	</div>
+
+	<!-- <p:messages globalOnly="true">
+		<p:autoUpdate />
+	</p:messages> -->
+
+	<div class="surface-card px-6 py-5 mb-8">
+		<h2 class="text-color-secondary">Bienvenido</h2>
+	</div>
+
+	<p:growl showDetail="true">
+		<p:autoUpdate />
+	</p:growl>
+
+	<!-- CRUD DataTable -->
+	<div class="card">
+
+		<h:form id="formDataTable">
+
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="Nuevo" icon="pi pi-plus"
+						styleClass="ui-button-success mr-3"
+						actionListener="#{frutaBean.openAddFrutaDialog()}"
+						update=":formDialogs:dialogPanel"
+						oncomplete="PF('addFrutaDialog').show()"
+						></p:commandButton>
+					<p:tooltip for="@previous" value="Crear nuevo producto" position="bottom"/>
+					<p:commandButton value="Eliminar Seleccionados"
+						icon="pi pi-trash" styleClass="ui-button-danger"></p:commandButton>
+						<p:tooltip for="@previous" value="Eliminar los productos seleccionados" position="bottom"/>
+				</p:toolbarGroup>
+				<p:toolbarGroup>
+					<p:menuButton value="Importar / Exportar">
+						<p:menuitem value="Importar CSV" update="@none"
+							icon="pi pi-upload" />
+						<p:divider />
+						<p:menuitem value="Exportar CSV" update="@none"
+							icon="pi pi-table" />
+						<p:menuitem value="Exportar Excel" update="@none"
+							icon="pi pi-file-excel" />
+						<p:menuitem value="Exportar PDF" update="@none"
+							icon="pi pi-file-pdf" />
+						<p:divider />
+						<p:menuitem value="Copiar" update="@none" icon="pi pi-copy" />
+						<p:menuitem value="print" update="@none" icon="pi pi-print" />
+
+					</p:menuButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:dataTable value="#{frutaBean.frutas}" var="fruta">
+			
+				<p:column headerText="ID" sortBy="#{fruta.id}" filterBy="#{fruta.id}">
+					<h:outputText value="#{fruta.id}" />
+				</p:column>
+				<p:column headerText="NOMBRE" sortBy="#{fruta.nombre}" filterBy="#{fruta.nombre}">
+					<h:outputText value="#{fruta.nombre}" />
+				</p:column>
+				<p:column headerText="PRECIO" sortBy="#{fruta.precio}" filterBy="#{fruta.precio}">
+					<h:outputText value="#{fruta.precio}" />
+				</p:column>
+				<p:column headerText="CANTIDAD" sortBy="#{fruta.cantidad}" filterBy="#{fruta.cantidad}">
+					<h:outputText value="#{fruta.cantidad}" />
+				</p:column>
+				<p:column headerText="EXISTENCIA" sortBy="#{fruta.existencias}" filterBy="#{fruta.existencias}">
+					<h:outputText value="#{fruta.existencias}" />
+				</p:column>
+				<p:column headerText="IMAGEN">
+					<p:graphicImage a:src="#{fruta.imagen}" styleClass="max-h-5rem"></p:graphicImage>
+				</p:column>
+			
+			</p:dataTable>
+
+		</h:form>
+
+		<h:form id="formDialogs">
+			<p:dialog widgetVar="addFrutaDialog">
+				<p:outputPanel id="dialogPanel">
+					<h1>Hola mundo</h1>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+
+	</div>
+
+</h:body>
+
+</html>

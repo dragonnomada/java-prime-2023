@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Prime Faces Ajax</title>
+
+	<link rel="stylesheet"
+		href="https://unpkg.com/primeflex@^3/primeflex.css" />
+</h:head>
+
+<h:body styleClass="surface-ground text-color">
+
+	<div
+		class="surface-card px-5 py-2 flex sm:flex-row justify-content-between align-items-center flex-column">
+		<h1 class="text-primary">Prime Faces Ajax</h1>
+		<div>
+			<h:form styleClass="flex flex-column flex-row">
+				<span class="pb-2">Selecciona un tema:</span>
+				<p:selectOneMenu value="#{themeBean.currentTheme}">
+					<!-- 
+				<f:selectItem itemValue="saga" itemLabel="Saga" />
+				<f:selectItem itemValue="vela" itemLabel="Vela" />
+				<f:selectItem itemValue="arya" itemLabel="Arya" />
+				<f:selectItem itemValue="material-light" itemLabel="Material Light" />
+				<f:selectItem itemValue="material-dark" itemLabel="Material Dark" />
+				<f:selectItem itemValue="bootstrap-light"
+					itemLabel="Bootstrap Light" />
+				<f:selectItem itemValue="bootstrap-dark" itemLabel="Bootstrap Dark" />
+				-->
+					<f:selectItems value="#{themeBean.themes}" />
+					<p:ajax update="@all" />
+				</p:selectOneMenu>
+			</h:form>
+		</div>
+	</div>
+
+	<div class="surface-card px-6 py-5 mb-8">
+		<h2 class="text-color-secondary">Bienvenido</h2>
+		<h3>
+			<h:outputText value="#{themeBean.currentTheme}" />
+		</h3>
+	</div>
+
+	<p:growl showDetail="true">
+		<p:autoUpdate />
+	</p:growl>
+
+	<div class="w-full flex flex-row justify-content-center">
+		<div class="w-9 surface-hover p-5 border-round-3xl shadow-8">
+
+			<h:form styleClass="">
+				<div class="py-3">
+					<span class="ui-float-label"> <p:inputText
+							value="#{simpleView.title}" styleClass="w-full">
+							<!-- f:ajax event -> listener -> render -->
+							<!-- p:ajax event -> listener -> update -->
+							<p:ajax event="keyup" listener="#{simpleView.updateSuggestions}"
+								update="@obs(suggestionsUpdated)" />
+						</p:inputText> <p:outputLabel for="@previous" value="Título" />
+					</span>
+				</div>
+			</h:form>
+
+			<div class="pb-4">
+				<p:tag value="#{simpleView.title}">
+					<p:autoUpdate />
+				</p:tag>
+			</div>
+
+			<div class="flex flex-column aling-items-center pb-4">
+				<p:selectOneMenu>
+					<p:autoUpdate on="suggestionsUpdated" />
+					<f:selectItems value="#{simpleView.suggestions}" />
+					<f:facet name="footer">
+						<div>Sugerencias: #{simpleView.totalSuggestions()}</div>
+					</f:facet>
+				</p:selectOneMenu>
+			</div>
+
+			<div>
+				<p:fieldset legend="Sugerencias">
+					<p:autoUpdate on="suggestionsUpdated" />
+					<div
+						class="flex flex-column sm:flex-row align-items-center sm:justify-content-end">
+						<ui:repeat value="#{simpleView.suggestions}" var="suggestion">
+							<div class="pb-3 sm:pb-0">
+								<p:tag value="#{suggestion}" styleClass="mx-2" />
+							</div>
+						</ui:repeat>
+					</div>
+				</p:fieldset>
+			</div>
+
+		</div>
+	</div>
+
+</h:body>
+
+</html>
