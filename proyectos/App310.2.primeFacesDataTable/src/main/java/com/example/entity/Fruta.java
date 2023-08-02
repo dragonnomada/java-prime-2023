@@ -1,9 +1,10 @@
 package com.example.entity;
 
 public class Fruta {
-	
+
 	// Design Pattern Factory
 	private static long nextId;
+
 	public static Fruta create(String nombre, double precio) {
 		Fruta fruta = new Fruta();
 		fruta.setId(++nextId);
@@ -68,6 +69,12 @@ public class Fruta {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+
+	@Override
+	public String toString() {
+		return "Fruta [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", cantidad=" + cantidad
+				+ ", existencias=" + existencias + "]";
 	}
 
 }

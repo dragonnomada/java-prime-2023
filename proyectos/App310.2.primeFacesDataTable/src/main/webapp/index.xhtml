@@ -4,12 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Prime Faces Dialogs</title>
+	<title>Prime Faces DataTable</title>
 
 	<link rel="stylesheet"
 		href="https://unpkg.com/primeflex@^3/primeflex.css" />
@@ -19,7 +20,7 @@
 
 	<div
 		class="surface-card px-5 py-2 flex sm:flex-row justify-content-between align-items-center flex-column">
-		<h1 class="text-primary">Prime Faces Dialogs</h1>
+		<h1 class="text-primary">Prime Faces DataTable</h1>
 		<div>
 			<h:form styleClass="flex flex-column flex-row">
 				<span class="pb-2">Selecciona un tema:</span>
@@ -54,20 +55,20 @@
 						styleClass="ui-button-success mr-3"
 						actionListener="#{frutaBean.openAddFrutaDialog()}"
 						update=":formDialogs:dialogPanel"
-						oncomplete="PF('addFrutaDialog').show()"
-						></p:commandButton>
-					<p:tooltip for="@previous" value="Crear nuevo producto" position="bottom"/>
-					<p:commandButton value="Eliminar Seleccionados"
-						icon="pi pi-trash" styleClass="ui-button-danger"></p:commandButton>
-						<p:tooltip for="@previous" value="Eliminar los productos seleccionados" position="bottom"/>
+						oncomplete="PF('addFrutaDialog').show()"></p:commandButton>
+					<p:tooltip for="@previous" value="Crear nuevo producto"
+						position="bottom" />
+					<p:commandButton value="Eliminar Seleccionados" icon="pi pi-trash"
+						styleClass="ui-button-danger"></p:commandButton>
+					<p:tooltip for="@previous"
+						value="Eliminar los productos seleccionados" position="bottom" />
 				</p:toolbarGroup>
 				<p:toolbarGroup>
 					<p:menuButton value="Importar / Exportar">
 						<p:menuitem value="Importar CSV" update="@none"
 							icon="pi pi-upload" />
 						<p:divider />
-						<p:menuitem value="Exportar CSV" update="@none"
-							icon="pi pi-table" />
+						<p:menuitem value="Exportar CSV" update="@none" icon="pi pi-table" />
 						<p:menuitem value="Exportar Excel" update="@none"
 							icon="pi pi-file-excel" />
 						<p:menuitem value="Exportar PDF" update="@none"
@@ -75,32 +76,66 @@
 						<p:divider />
 						<p:menuitem value="Copiar" update="@none" icon="pi pi-copy" />
 						<p:menuitem value="print" update="@none" icon="pi pi-print" />
-
 					</p:menuButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			
-			<p:dataTable value="#{frutaBean.frutas}" var="fruta">
-			
-				<p:column headerText="ID" sortBy="#{fruta.id}" filterBy="#{fruta.id}">
+
+			<p:dataTable id="frutasDataTable" widgetVar="frutasDataTable"
+				value="#{frutaBean.frutas}" var="fruta" rowKey="#{fruta.id}"
+				paginator="true" rows="10" rowSelectMode="add"
+				paginatorPosition="bottom">
+
+				<f:facet name="header">
+					<div>
+						<h1>Tabla de Frutas</h1>
+						<h2>Total: #{frutaBean.frutas.size()}</h2>
+						<span class="filter-container ui-input-icon-left"> <i
+							class="pi pi-search" /> <p:inputText id="globalFilter"
+								onkeyup="PF('frutasDataTable').filter()" placeholder="Buscar">
+								<p:ajax update=":formDataTable:frutasDataTable" />
+							</p:inputText>
+						</span>
+					</div>
+				</f:facet>
+
+				<p:column selectionMode="multiple" exportable="false" />
+				<p:column headerText="ID" sortBy="#{fruta.id}"
+					filterBy="#{fruta.id}">
 					<h:outputText value="#{fruta.id}" />
 				</p:column>
-				<p:column headerText="NOMBRE" sortBy="#{fruta.nombre}" filterBy="#{fruta.nombre}">
+				<p:column headerText="NOMBRE" sortBy="#{fruta.nombre}"
+					filterBy="#{fruta.nombre}">
 					<h:outputText value="#{fruta.nombre}" />
 				</p:column>
-				<p:column headerText="PRECIO" sortBy="#{fruta.precio}" filterBy="#{fruta.precio}">
-					<h:outputText value="#{fruta.precio}" />
+				<p:column headerText="PRECIO" sortBy="#{fruta.precio}"
+					filterBy="#{fruta.precio}">
+					<h:outputText value="#{fruta.precio}">
+						<f:convertNumber type="currency" locale="es_MX" />
+					</h:outputText>
+					<span>MXN</span>
 				</p:column>
-				<p:column headerText="CANTIDAD" sortBy="#{fruta.cantidad}" filterBy="#{fruta.cantidad}">
+				<p:column headerText="CANTIDAD" sortBy="#{fruta.cantidad}"
+					filterBy="#{fruta.cantidad}">
 					<h:outputText value="#{fruta.cantidad}" />
+					<span>KG</span>
 				</p:column>
-				<p:column headerText="EXISTENCIA" sortBy="#{fruta.existencias}" filterBy="#{fruta.existencias}">
+				<p:column headerText="EXISTENCIA" sortBy="#{fruta.existencias}"
+					filterBy="#{fruta.existencias}">
 					<h:outputText value="#{fruta.existencias}" />
+					<span>UNIDADES</span>
 				</p:column>
 				<p:column headerText="IMAGEN">
 					<p:graphicImage a:src="#{fruta.imagen}" styleClass="max-h-5rem"></p:graphicImage>
 				</p:column>
-			
+
+				<p:column exportable="false">
+					<p:commandButton value="Ver detalles" icon="pi pi-eye"
+						process="@this" update=":formDialogs" oncomplete="PF('frutaDetailsDialog').show()">
+						<f:setPropertyActionListener value="#{fruta}"
+							target="#{frutaBean.frutaSeleccionada}" />
+					</p:commandButton>
+				</p:column>
+
 			</p:dataTable>
 
 		</h:form>
@@ -108,7 +143,121 @@
 		<h:form id="formDialogs">
 			<p:dialog widgetVar="addFrutaDialog">
 				<p:outputPanel id="dialogPanel">
-					<h1>Hola mundo</h1>
+					<h1>Agregar nueva Fruta</h1>
+					<div class="field flex flex-column">
+						<p:outputLabel for="frutaNombre" value="Nombre de la fruta:" />
+						<p:inputText id="frutaNombre" value="#{frutaBean.nombre}"
+							placeholder="Ej. Manzana" />
+					</div>
+					<div class="field flex flex-column">
+						<p:outputLabel for="frutaPrecio" value="Precio de la fruta:" />
+						<span class="ui-input-icon-left"> <i
+							class="pi pi-money-bill" /> <p:inputNumber id="frutaPrecio"
+								value="#{frutaBean.precio}" placeholder="Ej. 1,234.56 MXN"
+								symbol=" MXN" symbolPosition="s" decimalSeparator="."
+								thousandSeparator="," styleClass="pl-5" minValue="0.01"
+								maxValue="10000">
+
+							</p:inputNumber>
+						</span>
+					</div>
+				</p:outputPanel>
+
+				<f:facet name="footer">
+					<p:commandButton value="Aceptar"
+						actionListener="#{frutaBean.submitAddFruta()}"
+						update=":formDataTable :formDialogs" />
+				</f:facet>
+			</p:dialog>
+
+			<p:dialog widgetVar="frutaDetailsDialog" modal="true">
+				<p:outputPanel rendered="#{not empty frutaBean.frutaSeleccionada}">
+					<h1>Detalles de la Fruta Seleccionada</h1>
+					<div class="p-3 h-full">
+						<div class="p-3 h-full flex flex-column surface-card"
+							style="border-radius: 6px">
+							<div class="text-900 font-bold text-2xl mb-2">
+								<h:outputText value="#{frutaBean.frutaSeleccionada.nombre}"></h:outputText>
+							</div>
+							<div class="text-600 flex flex-row justify-content-between">
+								<div>
+									<span>Cantidad: </span>
+									<h:outputText value="#{frutaBean.frutaSeleccionada.cantidad}" styleClass="font-bold"></h:outputText>
+									<span class="font-bold">KG</span>
+								</div>
+								<div>
+									<i class="pi pi-ellipsis-v"></i>
+								</div>
+								<div>
+									<span>Existencias: </span>
+									<h:outputText value="#{frutaBean.frutaSeleccionada.existencias}" styleClass="font-bold"></h:outputText>
+									<span class="font-bold">UNIDADES</span>
+								</div>
+							</div>
+							<hr
+								class="my-3 mx-0 border-top-1 border-bottom-none surface-border" />
+							<div class="flex align-items-baseline">
+								<span class="font-bold text-2xl text-900">
+									<h:outputText value="#{frutaBean.frutaSeleccionada.precio}">
+										<f:convertNumber type="currency" locale="es_MX" />
+									</h:outputText>
+								</span> <span
+									class="ml-2 font-medium text-600">mxn</span>
+							</div>
+							<hr
+								class="my-3 mx-0 border-top-1 border-bottom-none surface-border" />
+							<ul class="list-none p-0 m-0 flex-grow-1">
+								<c:choose>
+									<c:when test="#{frutaBean.frutaSeleccionada.precio gt 20}">
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-times-circle text-red-500 mr-2" /> <span>El precio es superior al 90% de otras frutas</span></li>
+									</c:when>
+									<c:when test="#{frutaBean.frutaSeleccionada.precio lt 10}">
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-info-circle text-orange-500 mr-2" /> <span>El precio es inferior al 10% de otras frutas</span></li>
+									</c:when>
+									<c:otherwise>
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-check-circle text-green-500 mr-2" /> <span>El precio es normal como el 80% de otras frutas</span></li>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="#{frutaBean.frutaSeleccionada.cantidad gt 100}">
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-times-circle text-red-500 mr-2" /> <span>La cantidad es superior al 90% de otras frutas</span></li>
+									</c:when>
+									<c:when test="#{frutaBean.frutaSeleccionada.cantidad lt 1}">
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-info-circle text-orange-500 mr-2" /> <span>La cantidad es inferior al 10% de otras frutas</span></li>
+									</c:when>
+									<c:otherwise>
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-check-circle text-green-500 mr-2" /> <span>La cantidad es normal como el 80% de otras frutas</span></li>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="#{frutaBean.frutaSeleccionada.existencias gt 50}">
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-times-circle text-red-500 mr-2" /> <span>Las existencias son superiores al 90% de otras frutas</span></li>
+									</c:when>
+									<c:when test="#{frutaBean.frutaSeleccionada.existencias lt 5}">
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-info-circle text-orange-500 mr-2" /> <span>Las existencias son inferiores al 10% de otras frutas</span></li>
+									</c:when>
+									<c:otherwise>
+										<li class="flex align-items-center mb-3"><i
+									class="pi pi-check-circle text-green-500 mr-2" /> <span>Las existencias son normale como el 80% de otras frutas</span></li>
+									</c:otherwise>
+								</c:choose>
+							</ul>
+							<hr
+								class="mb-3 mx-0 border-top-1 border-bottom-none surface-border mt-auto" />
+							<p:commandButton type="button" value="Cerrar"
+								styleClass="px-3 py-2 w-full mt-auto" process="@this" >
+								<p:ajax event="click" oncomplete="PF('frutaDetailsDialog').hide()" update=":formDialogs" />	
+							</p:commandButton>
+						</div>
+					</div>
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
